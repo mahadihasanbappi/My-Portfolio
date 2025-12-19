@@ -1,676 +1,687 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahadi Hasan Bappi | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --cyan: #00f2ff;
+            --purple: #bc13fe;
+            --dark: #050505;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+            --shadow: 0 20px 50px rgba(0,0,0,0.5);
+            --red: #ff2a2a;
+            --green: #00ff88;
+        }
 
-        <link rel="stylesheet" href="assets/css/styles.css">
-        <link rel="stylesheet" href="assets/css/experienceEducation.css">
-        <link rel="stylesheet" href="assets/css/projects.css">
-        <link rel="icon" href="assets/favicon.ico">
+        * { box-sizing: border-box; scroll-behavior: smooth; cursor: none; }
 
+        body {
+            margin: 0; background-color: var(--dark); color: white;
+            font-family: 'Poppins', sans-serif; overflow-x: hidden;
+        }
 
-        <!-- =====BOX ICONS===== -->
-        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-        <title>Lavisha Bhambri</title>
-    </head>
-    <body>
-        <!--===== HEADER =====-->
-        <header class="l-header">
-            <nav class="nav bd-grid">
-                <div>
-                    <a href="#" class="nav__logo"><span class="text-highlight my_name">Lavisha</span></a>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 4px; }
+
+        /* Background Canvas */
+        canvas { position: fixed; top: 0; left: 0; z-index: -1; }
+
+        /* Custom Cursor */
+        .cursor {
+            width: 20px; height: 20px; border: 1px solid var(--cyan); border-radius: 50%;
+            position: fixed; pointer-events: none; z-index: 9999;
+            transition: transform 0.1s ease-out, opacity 0.2s ease;
+            transform: translate(-50%, -50%);
+            backdrop-filter: invert(1);
+            opacity: 1;
+        }
+        .cursor.expand { transform: translate(-50%, -50%) scale(2.5); background: rgba(0, 242, 255, 0.2); border-color: transparent; }
+
+        /* Floating Nav */
+        nav {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(15px);
+            padding: 15px 30px; border-radius: 50px; border: 1px solid var(--border);
+            z-index: 1000; display: flex; gap: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            flex-wrap: wrap; justify-content: center; width: max-content; max-width: 95%;
+        }
+        nav a { 
+            color: #fff; text-decoration: none; font-family: 'Rajdhani'; font-weight: 700; 
+            text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;
+            transition: 0.3s; position: relative;
+        }
+        nav a::after {
+            content: ''; position: absolute; bottom: -5px; left: 0; width: 0%; height: 2px;
+            background: var(--cyan); transition: 0.3s;
+        }
+        nav a:hover { color: var(--cyan); text-shadow: 0 0 10px var(--cyan); }
+        nav a:hover::after { width: 100%; }
+
+        /* Header & Profile */
+        header { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; }
+        
+        .profile-wrapper {
+            position: relative; width: 240px; height: 240px; margin-bottom: 30px;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .ring {
+            position: absolute; width: 100%; height: 100%; border-radius: 50%;
+            border: 2px solid transparent; border-top-color: var(--cyan); border-right-color: var(--purple);
+            animation: spin 3s linear infinite;
+        }
+        .ring:nth-child(2) { width: 110%; height: 110%; border-top-color: var(--purple); border-right-color: var(--cyan); animation: spin 5s linear infinite reverse; }
+        
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .profile-img { 
+            width: 220px; height: 220px; border-radius: 50%; object-fit: cover; 
+            z-index: 2; border: 4px solid #111; box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
+        }
+
+        h1 { 
+            font-family: 'Rajdhani'; font-size: 4.5rem; margin: 0; 
+            background: linear-gradient(to right, #fff, var(--cyan)); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            text-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+        h3 { color: var(--cyan); letter-spacing: 4px; font-weight: 300; margin-top: 5px; text-transform: uppercase; }
+
+        .contact-info { 
+            margin-top: 25px; display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; 
+            background: rgba(255,255,255,0.03); padding: 10px 25px; border-radius: 50px; border: 1px solid var(--border);
+        }
+        .contact-info span { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: #ccc; }
+        .contact-info i { color: var(--cyan); }
+
+        /* Sections */
+        section { padding: 100px 20px; max-width: 1000px; margin: 0 auto; position: relative; }
+        
+        h2 { 
+            font-family: 'Rajdhani'; font-size: 3.5rem; text-align: center; 
+            margin-bottom: 70px; position: relative; display: inline-block; left: 50%; transform: translateX(-50%);
+            color: white; text-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+        }
+        h2::after {
+            content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
+            width: 60px; height: 4px; background: var(--cyan); border-radius: 2px;
+            box-shadow: 0 0 15px var(--cyan);
+        }
+
+        /* 3D Card Engine */
+        .card-3d {
+            background: rgba(20, 20, 25, 0.4); 
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--border); border-radius: 20px; padding: 40px; margin-bottom: 60px;
+            transform-style: preserve-3d; transform: perspective(1000px); 
+            transition: transform 0.1s, box-shadow 0.3s;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            opacity: 0; transform: translateY(50px);
+            position: relative; overflow: hidden;
+        }
+        .card-3d::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
+            transform: skewX(-25deg); transition: 0.5s; pointer-events: none;
+        }
+        .card-3d:hover::before { left: 100%; }
+        .card-3d.visible { opacity: 1; transform: translateY(0); transition: opacity 0.8s, transform 0.8s; }
+        .layer-content { transform: translateZ(40px); }
+        
+        /* Background Image Cards */
+        .bg-card-style { background-size: cover; background-position: center !important; border: 1px solid rgba(0, 242, 255, 0.3); position: relative; z-index: 1; }
+        .bg-card-style::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, #000 10%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.4));
+            z-index: -1; border-radius: 20px;
+        }
+        .bg-iium { background-image: url('https://i.postimg.cc/ZRrg4Kxf/UIAM.jpg'); }
+        .bg-wub { background-image: url('https://i.postimg.cc/4NR6pxPG/World-University-of-Bangladesh-Plot-5-8-Avenue-6-Lake-Drive-Road-Sector-17H-Uttara-Dhaka-1230.jpg'); }
+        .bg-monipur { background-image: url('https://i.postimg.cc/8cWkqPDx/Monipur-High-School-and-College-03.jpg'); }
+        .bg-janata { background-image: url('https://i.postimg.cc/MHGbDNSG/301397775-450821410432794-849219365508246777-n.jpg'); }
+
+        .info-detail { 
+            background: rgba(0,0,0,0.7); padding: 20px; margin-top: 25px; 
+            border-left: 4px solid var(--cyan); border-radius: 0 10px 10px 0; 
+            transform: translateZ(60px); box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+        .info-detail h4 { margin: 0 0 10px 0; color: var(--cyan); text-transform: uppercase; letter-spacing: 1px; }
+        .info-detail li { list-style: none; margin-bottom: 8px; color: #ddd; font-size: 0.95rem; }
+        .info-detail i { color: var(--cyan); margin-right: 12px; }
+
+        .date-badge { 
+            background: var(--cyan); color: #000; padding: 5px 15px; 
+            font-weight: bold; border-radius: 4px; display: inline-block;
+            box-shadow: 0 0 10px var(--cyan); margin-bottom: 10px;
+        }
+        .skill-tag { 
+            border: 1px solid var(--cyan); padding: 8px 25px; border-radius: 30px; 
+            margin: 5px; display: inline-block; font-size: 0.9rem; color: white;
+            transition: 0.3s; background: rgba(0, 242, 255, 0.05);
+        }
+        .skill-tag:hover { background: var(--cyan); color: black; box-shadow: 0 0 20px var(--cyan); }
+
+        .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .cert-card { 
+            background: rgba(255,255,255,0.03); padding: 25px; border-radius: 15px; 
+            border: 1px solid var(--border); transition: 0.3s; transform: translateZ(30px);
+        }
+        .cert-card:hover { border-color: var(--cyan); background: rgba(255,255,255,0.08); transform: translateZ(50px); }
+
+        .video-container {
+            margin-top: 30px; position: relative; padding-bottom: 56.25%; height: 0; 
+            border-radius: 15px; overflow: hidden; border: 1px solid var(--border);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6); transform: translateZ(40px);
+        }
+        
+        /* --- AI TOOL STYLES (FIXED DESIGN) --- */
+        .ai-input-box {
+            width: 100%; height: 180px; background: rgba(0,0,0,0.5); border: 1px solid var(--border);
+            color: white; padding: 15px; border-radius: 10px; font-family: 'Poppins', sans-serif;
+            resize: none; outline: none; margin-bottom: 0; transition: 0.3s;
+            transform: translateZ(20px); font-size: 1rem;
+            display: block; /* Ensure block display */
+        }
+        .ai-input-box:focus { border-color: var(--cyan); box-shadow: 0 0 15px rgba(0, 242, 255, 0.2); }
+        
+        /* FIXED: Word Count Badge Design */
+        .input-stats {
+            display: flex; justify-content: flex-end; gap: 10px;
+            margin-bottom: 25px;
+            transform: translateZ(25px); /* Bring slightly forward */
+        }
+        .stat-item {
+            background: #000; padding: 5px 15px; 
+            border-radius: 0 0 8px 8px; /* Rounded bottom corners */
+            border: 1px solid var(--border); border-top: none;
+            color: #ccc; font-size: 0.8rem; letter-spacing: 0.5px;
+        }
+        .stat-item b { margin-left: 5px; }
+
+        .ai-btn {
+            background: transparent; border: 1px solid var(--cyan); color: var(--cyan);
+            padding: 10px 30px; border-radius: 30px; font-family: 'Rajdhani'; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 2px; cursor: none; transition: 0.3s;
+            display: inline-block;
+        }
+        .ai-btn:hover { background: var(--cyan); color: black; box-shadow: 0 0 20px var(--cyan); }
+
+        .result-box {
+            margin-top: 25px; display: none; padding: 20px; border-radius: 10px;
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+            transform: translateZ(30px);
+        }
+        .meter-container {
+            width: 100%; height: 10px; background: #222; border-radius: 10px;
+            overflow: hidden; margin-top: 10px; position: relative;
+        }
+        .meter-fill { height: 100%; width: 0%; transition: width 0.5s ease-in-out; }
+        .score-text { font-size: 1.5rem; font-weight: 700; font-family: 'Rajdhani'; }
+
+        /* --- HUMANIZER SPECIFIC STYLES --- */
+        .settings-bar {
+            display: flex; gap: 20px; margin-bottom: 20px; flex-wrap: wrap;
+            background: rgba(255,255,255,0.02); padding: 15px; border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+        .setting-group { flex: 1; min-width: 200px; }
+        .setting-group label { display: block; color: var(--cyan); margin-bottom: 8px; font-size: 0.9rem; }
+        
+        .cyber-select {
+            width: 100%; background: #050505; color: white; border: 1px solid var(--cyan);
+            padding: 10px; border-radius: 5px; outline: none; cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .cyber-range {
+            width: 100%; -webkit-appearance: none; background: #333; height: 5px; border-radius: 5px; outline: none;
+        }
+        .cyber-range::-webkit-slider-thumb {
+            -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%;
+            background: var(--purple); cursor: pointer; box-shadow: 0 0 10px var(--purple);
+        }
+
+        .stats-row { display: flex; gap: 20px; margin-top: 10px; font-size: 0.85rem; color: #aaa; }
+        .copy-btn {
+            background: transparent; border: 1px solid var(--purple); color: var(--purple);
+            padding: 5px 15px; border-radius: 20px; cursor: pointer; transition: 0.3s; font-size: 0.8rem;
+        }
+        .copy-btn:hover { background: var(--purple); color: white; }
+
+        /* Footer */
+        footer { 
+            text-align: center; padding: 80px 20px; background: #020202; 
+            border-top: 1px solid var(--border);
+        }
+        .social-links { display: flex; justify-content: center; gap: 30px; margin-bottom: 40px; }
+        .social-links a {
+            width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,0.05);
+            display: flex; align-items: center; justify-content: center;
+            color: #888; font-size: 1.5rem; transition: all 0.3s ease; border: 1px solid var(--border);
+        }
+        .social-links a:hover {
+            color: var(--cyan); border-color: var(--cyan); 
+            transform: translateY(-5px) scale(1.1); box-shadow: 0 0 20px var(--cyan);
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2.5rem; }
+            .profile-wrapper { width: 180px; height: 180px; }
+            .profile-img { width: 160px; height: 160px; }
+            nav { width: 95%; padding: 10px; gap: 15px; }
+            nav a { font-size: 0.75rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor"></div>
+    <canvas id="network"></canvas>
+
+    <nav>
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#experience">Work</a>
+        <a href="#certifications">Training</a>
+        <a href="#gallery">MOTHER LAND</a>
+        <a href="#aidetector" style="color:var(--cyan);">AI Detector</a>
+        <a href="#humanizer" style="color:var(--purple);">Deep Humanizer</a>
+        <a href="#favourites">Favourites</a>
+    </nav>
+
+    <header>
+        <div class="profile-wrapper">
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <img src="https://i.postimg.cc/tgt5Lzw1/AD-73604-2x2.jpg" alt="Profile" class="profile-img">
+        </div>
+        <h1>Mahadi Hasan Bappi</h1>
+        <h3>Marketer | Pharmacist | Graphic Designer</h3>
+        
+        <div class="contact-info">
+            <span><i class="fas fa-map-marker-alt"></i> Kuala Lumpur, Malaysia</span>
+            <span><i class="fas fa-phone"></i> (+60) 136343100</span>
+            <span><i class="fas fa-envelope"></i> mahadihasanbappi1692001@gmail.com</span>
+        </div>
+    </header>
+
+    <section id="about">
+        <div class="card-3d">
+            <div class="layer-content">
+                <h2 style="margin-bottom: 30px;">From Molecules to Markets</h2>
+                <p style="text-align:justify; font-size:1.1rem; line-height:1.8; color:#ddd; margin-bottom: 20px;">
+                    You might ask, <em style="color:var(--cyan)">"Why is a Pharmacist mastering Marketing?"</em>
+                </p>
+                <p style="text-align:justify; font-size:1rem; line-height:1.8; color:#ccc;">
+                    It started with science during my <strong>B.Pharm</strong>, understanding how medicines heal. But the plot twist happened during my time as a <strong>Medicine Information Associate (MIA)</strong>. While promoting medicines to doctors, I realized a crucial truth: <strong style="color:white">The best medicine is useless if the world doesn't understand its value.</strong>
+                </p>
+                <p style="text-align:justify; font-size:1rem; line-height:1.8; color:#ccc;">
+                    That experience bridged the gap for me. I saw that <strong>Science builds the product, but Marketing builds the trust.</strong> Now, pursuing my <strong>MSc in Marketing</strong>, I combine my clinical knowledge with persuasive strategy to tell stories that save lives.
+                </p>
+                <div style="text-align:center; margin-top:40px;">
+                    <span class="skill-tag">Pharma-Marketing</span>
+                    <span class="skill-tag">Brand Strategy</span>
+                    <span class="skill-tag">Medical Promotion</span>
+                    <span class="skill-tag">Data Analysis</span>
+                    <span class="skill-tag">Graphic Design</span>
                 </div>
+            </div>
+        </div>
+    </section>
 
-                <div class="nav__menu" id="nav-menu">
-                    <ul class="nav__list">
-                        <li class="nav__item"><a href="#home" class="nav__link active">Home</a></li>
-                        <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
-                        <li class="nav__item"><a href="#skills" class="nav__link">Skills</a></li>
-                        <li class="nav__item"><a href="#experience" class="nav__link">Experience</a></li>
-                        <li class="nav__item"><a href="#education" class="nav__link">Education</a></li>
-                        <li class="nav__item"><a href="#work" class="nav__link">Work</a></li>
-                        <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
+    <section id="education">
+        <h2>Education</h2>
+        <div class="card-3d bg-iium bg-card-style">
+            <div class="layer-content">
+                <span class="date-badge">Sept 2025 - Current</span>
+                <h3 style="font-size:2rem; margin:15px 0; text-shadow:0 2px 5px black;">Master of Science in Marketing</h3>
+                <p style="color:var(--cyan); font-weight:bold; font-size:1.2rem; text-shadow:0 2px 5px black;">International Islamic University of Malaysia (IIUM)</p>
+                <div class="info-detail">
+                    <h4>About IIUM</h4>
+                    <ul>
+                        <li><i class="fas fa-history"></i> Established on 23 May 1983.</li>
+                        <li><i class="fas fa-quote-left"></i> Motto: "The Garden of Knowledge and Virtue".</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Main campus in Gombak, spanning 700 acres.</li>
                     </ul>
                 </div>
-
-                <div class="nav__toggle" id="nav-toggle">
-                    <i class='bx bx-menu'></i>
-                </div>
-            </nav>
-        </header>
-
-        <main class="l-main">
-            <!--===== HOME =====-->
-            <section class="home bd-grid" id="home">
-                <div class="home__data">
-                    <h1 class="home__title home__title_more_color">Hi,<br>I'am <span class="home__title-color">Lavisha Bhambri</span><br> Web & ML Enthusiast</h1>
-                    <!-- <h1 class="home__title home__title_more_color">Hi,<br>I'am <span class="home__title-color">Lavisha Bhambri</span><br> & ML Enthusiast</h1> -->
-
-                    <a href="#contact" class="button">Contact</a>
-                    <a style="margin-left: 20px;" href="https://drive.google.com/file/d/1JsXst57JJPG_Ohy76IdG2S4QA46r5E-T/view?usp=sharing" class="button" download="LavishaBhambri_CV">CV</a>
-                    <!-- <a  href="#contact" class="button">CV</a> -->
-                </div>
-
-                <div class="home__social">
-                    <a href="https://www.linkedin.com/in/lavisha-bhambri-630384196/" class="home__social-icon"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://github.com/lavishabhambri" class="home__social-icon"><i class="fab fa-github"></i></a>
-                    <a href="mailto:bhambrilavisha@gmail.com" class="home__social-icon"><i class="fas fa-envelope"></i></a>
-                    <a href="https://twitter.com/BhambriLavisha" class="home__social-icon"><i class="fab fa-twitter"></i></a>
-                    <a href="https://bhambrilavisha.medium.com/" class="home__social-icon"><i class="fab fa-medium-m"></i></a>
-                </div>
-
-                <div class="home__img">
-                    <img src="assets/img/lavisha.png" alt="">
-                </div>
-            </section>
-
-            <!--===== ABOUT =====-->
-            <section class="about section " id="about">
-                <h2 class="section-title"><span class="text-highlight"></span>About</h2>
-
-                <div class="about__container bd-grid">
-                    <div class="about__img">
-                        <img src="assets/img/lavisha_about.jpeg" alt="">
-                    </div>
-
-                    <div>
-                        <h2 class="about__subtitle">I'am <span class="text-highlight-2">Lavisha Bhambri</span></h2>
-                        <p style="color:#dddddd;" class="about__text">I am in my Sophomore year, pursuing B.Tech in CSE at <span class="text-highlight-2">IIIT Hyderabad</span>. I got selected as a <span class="text-highlight-2">WTEF Scholar'2021</span> under top 50 out of 27,643 female undergraduates.</p>
-                        <p style="color:#dddddd;" class="about__text">I also got selected as a <span class="text-highlight-2">GHC Scholar'2021</span> among the top 250 women scholars.</p>
-                        <p style="color:#dddddd;" class="about__text">I am a <span class="text-highlight-2">Mernstack developer</span>. I have mostly worked in C, C++, Python and Javascript. I have experience in basics of Machine Learning algos. I also do CP in C++ and data structures.</p>
-                        <p style="color:#dddddd;" class="about__text">Apart from programming, I love to cook food & read blogs regarding technologies & designing.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!--===== SKILLS =====-->
-            <section class="skills section" id="skills">
-                <h2 class="section-title">Skills</h2>
-                <p class="skills-text">I am proficient in <span class="text-highlight-2">C, C++, Javascript, Python and DSA</span>. Also I'm pretty familiar with Mernstack Web Development & Machine Learning. I have won some various national level hackathons like <span class="text-highlight-2">ExecuteDTU, Electrothon, Hack&Wellness</span>.</p>
-                <div class="skills__container bd-grid">
-                    <div>
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <span  style="width: 30px;height: 30px;"class="iconify" data-icon="vscode-icons:file-type-html" data-inline="false"></span>
-                                <span class="skills__name">&nbsp HTML5</span>
-                            </div>
-                            <div class="skills__bar" data-bar-width="95">
-
-                            </div>
-                            <div>
-                                <span class="skills__percentage">95%</span>
-                            </div>
-                        </div>
-
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <span style="width: 30px;height: 30px;" class="iconify" data-icon="vscode-icons:file-type-css" data-inline="false"></span>
-                                <span class="skills__name">&nbsp CSS3</span>
-                            </div>
-                            <div class="skills__bar" data-bar-width="85">
-
-                            </div>
-                            <div>
-                                <span class="skills__percentage">85%</span>
-                            </div>
-                        </div>
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <span style="width: 27px;height: 27px;"class="iconify" data-icon="logos:javascript" data-inline="false"></span>
-                                <span class="skills__name">&nbsp JAVASCRIPT</span>
-                            </div>
-                            <div class="skills__bar" data-bar-width="65">
-
-                            </div>
-                            <div>
-                                <span class="skills__percentage">65%</span>
-                            </div>
-                        </div>
-
-                        <div class="skills__data">
-                            <div class="skills__names">
-                              <span style="width: 30px;height: 30px;"class="iconify" data-icon="logos-bootstrap" data-inline="false"></span>
-                                <span class="skills__name">&nbsp Bootstrap</span>
-                            </div>
-                            <div class="skills__bar" data-bar-width="85">
-
-                            </div>
-                            <div>
-                                <span class="skills__percentage">85%</span>
-                            </div>
-                        </div>
-
-                        <div class="skills__data">
-                            <div class="skills__names">
-                              <span style="width: 30px;height: 30px;" class="iconify" data-icon="simple-icons:canva" data-inline="false"></span>
-                                <!-- <span  class="iconify" data-icon="noto-v1:paintbrush" data-inline="false"></span> -->
-                                <span class="skills__name">&nbsp Canva</span>
-                            </div>
-                            <div class="skills__bar" data-bar-width="85">
-
-                            </div>
-                            <div>
-                                <span class="skills__percentage">85%</span>
-                            </div>
-                        </div>
-
-
-                    </div>
-
-                    <div>
-                      <div class="skills__data">
-                          <div class="skills__names">
-                              <span style="width: 30px;height: 30px;" class="iconify" data-icon="logos:c-plusplus" data-inline="false"></span>
-                              <span class="skills__name"> &nbsp C/C++</span>
-                          </div>
-                          <div class="skills__bar" data-bar-width="85">
-
-                          </div>
-                          <div>
-                              <span class="skills__percentage">85%</span>
-                          </div>
-                      </div>
-
-                      <div class="skills__data">
-                          <div class="skills__names">
-                            <span style="width: 30px;height: 30px;" class="iconify" data-icon="logos:python" data-inline="false"></span>
-                              <span class="skills__name"> &nbsp Python</span>
-                          </div>
-                          <div class="skills__bar" data-bar-width="85">
-
-                          </div>
-                          <div>
-                              <span class="skills__percentage">85%</span>
-                          </div>
-                      </div>
-
-                      <div class="skills__data">
-                          <div class="skills__names">
-                              <span style="width: 30px;height: 30px;" class="iconify" data-icon="noto-v1:paintbrush" data-inline="false"></span>
-                              <span class="skills__name">&nbsp UX/UI</span>
-                          </div>
-                          <div class="skills__bar" data-bar-width="85">
-
-                          </div>
-                          <div>
-                              <span class="skills__percentage">85%</span>
-                          </div>
-                      </div>
-                        <div class="skills__data">
-                            <div class="skills__names">
-                              <span style="width: 30px;height: 30px; color: lightgreen;" class="iconify" data-icon="carbon:machine-learning-model" data-inline="false"></span>
-                                <!-- <span style="width: 30px;height: 30px;" class="iconify" data-icon="carbon:machine-learning-model" data-inline="false" style="color: blue;"></span> -->
-                                <span class="skills__name">&nbsp Machine Learning</span>
-                            </div>
-                            <div class="skills__bar" data-bar-width="65">
-
-                            </div>
-                            <div>
-                                <span class="skills__percentage">65%</span>
-                            </div>
-                        </div>
-                        <div class="skills__data">
-                            <div class="skills__names">
-                              <span style="width: 30px;height: 30px;" class="iconify" data-icon="logos:git-icon" data-inline="false"></span>
-                                <!-- <span  class="iconify" data-icon="logos:github-octocat" data-inline="false"></span> -->
-                                <span class="skills__name">&nbsp Git & Github</span>
-                            </div>
-                            <div class="skills__bar" data-bar-width="75">
-
-                            </div>
-                            <div>
-                                <span class="skills__percentage">75%</span>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </section>
-
-
-          <!-- Experience Section -->
-          <section id="experience" style="margin-top: 40px;">
-            <h1 style="text-align:center;">
-                <span>
-                    <i  style="font-size: 2.5rem; color: #d53567;" class="fas fa-briefcase"></i>
-                </span>
-                <span class="expEdu-title"> Experience </span>
-            </h1>
-
-            <div class="timeline">
-
-                <div class="timeline-box left ">
-                    <div class="timeline-container">
-                        <h3 class="experience-designation m0 m-blue"> Software Engineer Intern </h3>
-                        <h4 class="experience-company-name"> Digital Product School by UnternehmerTUM</h4>
-                        <h5 class="experience-duration m0"> Sept,2021 - Dec,2021 </h5>
-
-                        <p class="experience-description text-align-justify">Developing prototype for Digital Product in team of four to solve real customer problem via Agile methodology.</p>
-                    </div>
-                </div>
-
-                <div class="timeline-box right">
-                    <div class="timeline-container">
-                        <h3 class="experience-designation  m0 m-blue"> WTEF Scholar'21 </h3>
-                        <h4 class="experience-company-name"> Google, Talentsprint </h4>
-                        <h5 class="experience-duration m0"> April,2021 - Present </h5>
-
-                        <p class="experience-description text-align-justify">Received 100% Scholarship under top 50 out of 27,643
-                        particpants.</p>
-                    </div>
-                </div>
-
-                <div class="timeline-box left ">
-                    <div class="timeline-container">
-                        <h3 class="experience-designation m0 m-blue"> Volunteer </h3>
-                        <h4 class="experience-company-name"> Women Who Code, Hyderabad </h4>
-                        <h5 class="experience-duration m0"> April,2021 - Present </h5>
-
-                        <p class="experience-description text-align-justify">Organised open source events, designed event posters & social media outreach.</p>
-                    </div>
-                </div>
-
-
-
-                <!-- <div class="timeline-box left ">
-                    <div class="timeline-container">
-                        <h3 class="experience-designation m0 m-blue"> Participant </h3>
-                        <h4 class="experience-company-name"> Girlscript Summer Of Code'21 </h4>
-                        <h5 class="experience-duration m0"> March,2021 - Present </h5>
-
-                        <p class="experience-description text-align-justify"> Designed wireframe in Balsamiq & UI/UX design in AdobeXD for the Desgen Project. </p>
-                    </div>
-                </div> -->
-
-                <div class="timeline-box right">
-                    <div class="timeline-container">
-                        <h3 class="experience-designation  m0 m-blue"> Alpha MLSA </h3>
-                        <h4 class="experience-company-name"> Microsoft </h4>
-                        <h5 class="experience-duration m0"> Jan,2021 - Present </h5>
-                        <p class="experience-description text-align-justify"> Selected as Microsoft Learn Student Ambassador & currently completed the Aplha Milestone.</p>
-                    </div>
-                </div>
-
-
-
-
-
-                <div id="timeline-divider">
-                    <div class="timeline-traveller">
-                        <div>
-                            <i class="fas fa-plane"  style="font-size: 2rem;"></i>
-                        </div>
-                    </div>
-                </div>
-
             </div>
-
-        </section>
-
-        <section id="education"style="margin-top: 100px;">
-
-            <h1 style="text-align:center;">
-                <span>
-                    <i  style="font-size: 2.5rem; color: #d53567;"class="fas fa-graduation-cap"></i>
-                </span>
-                <span class="expEdu-title mb75px"> Education </span>
-            </h1>
-
-            <div class="timeline">
-
-                <div class="timeline-box left ">
-                    <div class="timeline-container">
-                        <h3 class="experience-designation  m0 m-blue"> Bachelor of Technology </h3>
-                        <h4 class="experience-company-name "> IIIT Hyderabad </h4>
-                        <h5 class="experience-duration m0"> Nov, 2020 - Present </h5>
-
-                        <p class="experience-description text-align-justify">>> Branch - Computer Science & Engineering</p>
-                        <p class="experience-description text-align-justify">>> CGPA - 9.08</p>
-                        <p class="experience-description text-align-justify">>> Google Developer Student Club Lead at IIITH.</p>
-                        <p class="experience-description text-align-justify">>> Technical & Outreach team member at OSDG, IIITH.</p>
-                    </div>
-                </div>
-
-                <div class="timeline-box right ">
-                    <div class="timeline-container">
-                        <h3 class="experience-designation  m0 m-blue"> Sr. Secondary Education </h3>
-                        <h4 class="experience-company-name "> Modern Vidya Niketan Sr.Sec School </h4>
-                        <h5 class="experience-duration m0"> Apr, 2017 - May, 2019 </h5>
-                        <p class="experience-description text-align-justify">>> Achieved silver medal for 2nd rank at State Level NSO Olympiad in 2018.</p>
-                        <p class="experience-description text-align-justify">>> Bagged a rank of 1578 in JEE Mains Exam out of 9.34 lakh students.</p>
-                        <p class="experience-description text-align-justify">>> Achieved 2nd rank at school level in CBSE Boards in grade 12th.</p>
-                        <p class="experience-description text-align-justify">>> Percentage - 96.80%</p>
-                    </div>
-                </div>
-
-                <div class="timeline-box left ">
-                    <div class="timeline-container">
-                        <h3 class="experience-designation  m0 m-blue"> Secondary Education </h3>
-                        <h4 class="experience-company-name "> Tagore Academy Public School </h4>
-                        <h5 class="experience-duration m0"> Apr, 2015 - May, 2017 </h5>
-
-                        <p class="experience-description text-align-justify">>> Achieved 2nd Rank in team among 200 schools from all over DELHI-NCR region. </p>
-                        <p class="experience-description text-align-justify">>> Received a scholarship of Rs.36,000 as the top 500 participants in NTSE exam from the Haryana State Government.</p>
-                        <p class="experience-description text-align-justify">>> CGPA - 10</p>
-                    </div>
-                </div>
-
-                <div id="timeline-divider">
-                    <div class="timeline-traveller">
-                        <div>
-                            <i class="fas fa-car-side" style="font-size: 2rem;"></i>
-                        </div>
-                    </div>
-                </div>
+        </div>
+        
+        <div class="card-3d bg-wub bg-card-style">
+             <div class="layer-content">
+                <span class="date-badge">Graduated 2025</span>
+                <h3 style="font-size:1.8rem; margin:10px 0; text-shadow:0 2px 5px black;">Bachelor of Pharmacy</h3>
+                <p style="color:#eee; font-weight:bold; text-shadow:0 2px 5px black;">World University of Bangladesh, Dhaka</p>
+                <p style="text-shadow:0 2px 5px black;">Credits: 160</p>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!--===== WORK =====-->
-        <section class="work section" id="work" >
-          <h2 class="section-title">Work</h2>
-
-          <!-- PROJECT -->
-          <div class="blog-post " style="margin-top: 10vh;">
-            <div class="blog-post__img" style="height: 10%;">
-                <img src="assets/img/Codefry.png" alt="">
+    <section id="experience">
+        <h2>Experience</h2>
+        <div class="card-3d">
+            <div class="layer-content">
+                <span class="date-badge">July 2024 - Aug 2024</span>
+                <h3 style="margin-top:10px;">Survey Enumerator</h3>
+                <p style="color:var(--cyan); font-size:1.1rem;">Bangladesh Bureau of Statistics</p>
+                <p style="color:#ccc;">Data collection and field research for national statistics.</p>
             </div>
-            <div class="blog-post__info ">
-                <h1 class="blog-post__title">Codefry </h1>
-                <p class="blog-post__text">
-                    <span class="text-highlight-2">Codefry</span> is a MernStack Web Application, based upon the user’s Codeforces profile handles, helps programmers to code together and eases their tasks in the online schedule.
-                </p>
-                <div style="margin-bottom: 10px;"class="technologies">
-                  <p class="project-technologies">>> Frontend- HTML, CSS, Bootstarp, Flexbox, Javascript</p>
-                  <p class="project-technologies">>> Backend- ejs, Express.js, Node.js</p>
-                  <p class="project-technologies">>> Frameworks- React</p>
-                  <p class="project-technologies">>> Database- MongoDB, Atlas</p>
-                  <p class="project-technologies">>> Socket.io, WebRTC, Peer.js Library</p>
-                </div>
-                <div class="d-flex justify-content-around ">
-                    <div>
-                        <ul style="margin-bottom: 20px;" class="project-icons">
-                          <li><a class="github" href="https://github.com/lavishabhambri/CodeFry"><i class="fab fa-github"></i></a></li>
-                        </ul>
-                    </div>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <h2>MOTHER LAND</h2>
+        <div class="card-3d">
+            <div class="layer-content">
+                <h3>My Homeland Short Videos</h3>
+                <div class="video-container" style="margin-bottom: 20px;">
+                    <iframe src="https://www.youtube.com/embed/QNUSIOMb6vI" style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;"></iframe>
                 </div>
             </div>
         </div>
+    </section>
 
-          <!-- PROJECT -->
-          <div class="blog-post " style="margin-top: 10vh;">
-            <div class="blog-post__img" style="height: 10%;">
-                <img src="assets/img/PhonePocket.png" alt="">
-            </div>
-            <div class="blog-post__info ">
-                <h1 class="blog-post__title">Phone Pocket </h1>
-                <p class="blog-post__text">
-                    <span class="text-highlight-2">Phone Pocket</span> is a Mernstack Web Application that allows users to maintain their contacts. It doesn't need any local storage of the user. The website can be run anywhere, either on a mobile phone or desktop. 
-                </p>
-                <div style="margin-bottom: 10px;"class="technologies">
-                  <p class="project-technologies">>> Frontend- HTML, CSS, Bootstarp, Flexbox, Javascript</p>
-                  <p class="project-technologies">>> Backend- Node.js</p>
-                  <p class="project-technologies">>> Frameworks- React.js</p>
-                  <p class="project-technologies">>> Database- MongoDB Atlas</p>
-
+    <section id="aidetector">
+        <h2>AI Text Detector</h2>
+        <div class="card-3d">
+            <div class="layer-content">
+                <p style="color:#ccc; margin-bottom:15px;">Analyze text for AI patterns (Perplexity & Burstiness).</p>
+                
+                <textarea class="ai-input-box" id="aiInput" placeholder="Paste your text here (min 10 words)..."></textarea>
+                
+                <div class="input-stats">
+                    <span class="stat-item" style="border-color:var(--cyan)">Words: <b id="aiWordCount" style="color:var(--cyan)">0</b></span>
+                    <span class="stat-item" style="border-color:var(--cyan)">Chars: <b id="aiCharCount" style="color:var(--cyan)">0</b></span>
                 </div>
-                <div class="d-flex justify-content-around ">
-                    <div>
-                        <ul style="margin-bottom: 20px;" class="project-icons">
-                          <li><a class="github" href="https://github.com/lavishabhambri/Phone-Pocket-App"><i class="fab fa-github"></i></a></li>
-                          <li><a class="github" href="https://phone-pocket.netlify.app/"><i class="fas fa-link"></i></a></li>
-                        </ul>
+
+                <button class="ai-btn" onclick="detectAI()">Analyze Text</button>
+                
+                <div class="result-box" id="resultBox">
+                    <div style="display:flex; justify-content:space-between; align-items:end;">
+                        <span style="color:#aaa;">AI Probability:</span>
+                        <span class="score-text" id="scoreText">0%</span>
                     </div>
+                    <div class="meter-container">
+                        <div class="meter-fill" id="meterFill"></div>
+                    </div>
+                    <p id="verdict" style="margin-top:15px; font-weight:bold; letter-spacing:1px;"></p>
                 </div>
             </div>
         </div>
+    </section>
 
+    <section id="humanizer">
+        <h2>Deep Text Humanizer</h2>
+        <div class="card-3d">
+            <div class="layer-content">
+                <p style="color:#ccc; margin-bottom:20px;">
+                    Rewrites text using <span style="color:var(--purple); font-weight:bold;">Cognitive Shuffling & Syntax Scrambling</span> to bypass detectors.
+                </p>
 
-          <!-- PROJECT -->
-          <div class="blog-post " style="margin-top: 10vh;">
-              <div class="blog-post__img" style="height: 10%;">
-                  <img src="assets/img/checkers.png" alt="">
-              </div>
-              <div class="blog-post__info ">
-                  <h1 class="blog-post__title">8X8 Checkers </h1>
-                  <p class="blog-post__text">
-                      <span class="text-highlight-2">8X8 Checkers</span> is a fully functional terminal Game that has 2 players with multiple features like Undo Moves, Review, Show all possible moves, double capture, exit, etc.
-                  </p>
-                  <div style="margin-bottom: 10px;"class="technologies">
-                    <p class="project-technologies">>> Programming Languages - C, Data Structures & algorithms.</p>
-
-                  </div>
-                  <div class="d-flex justify-content-around ">
-                      <div>
-                          <ul style="margin-bottom: 20px;" class="project-icons">
-                            <li><a class="github" href="https://github.com/esh04/Checkers"><i class="fab fa-github"></i></a></li>
-                          </ul>
-                      </div>
-                  </div>
-              </div>
-          </div>
-
-            <!-- PROJECT-->
-            <div class="blog-post " style="margin-top: 10vh;">
-                <div class="blog-post__img" style="height: 10%;">
-                    <img src="assets/img/PratibhaWebApp.png" alt="">
-                </div>
-                <div class="blog-post__info ">
-                    <h1 class="blog-post__title">Pratibha WebApp </h1>
-                    <p class="blog-post__text">
-                        <span class="text-highlight-2">Pratibha</span> is a awareness-healthcare webapp for the women to fight one on one with PCOS & builds a women-community across the globe. It also has a ML integrated self test analyser and a Diaglogflow integrated chatbot & call agent.
-                    </p>
-                    <div style="margin-bottom: 10px;"class="technologies">
-                      <p class="project-technologies">>> Frontend - HTML, CSS, Bootstrap</p>
-                      <p class="project-technologies">>> Backend - Express.js, Node.js, MongoDB Atlas</p>
-                      <p class="project-technologies">>> APIs/Hosting - Flask, Heroku, Google Auth2.0, Diaglogflow</p>
+                <div class="settings-bar">
+                    <div class="setting-group">
+                        <label><i class="fas fa-fingerprint"></i> Bypass Strategy:</label>
+                        <select id="hMode" class="cyber-select">
+                            <option value="ghost">Ghost Protocol (Max Bypass)</option>
+                            <option value="academic">Academic Stealth (Formal)</option>
+                            <option value="story">Creative Flow (Casual)</option>
+                        </select>
                     </div>
-                    <div class="d-flex justify-content-around ">
-                        <div>
-                            <ul style="margin-bottom: 20px;" class="project-icons">
-                              <li><a class="github" href="https://github.com/lavishabhambri/Pratibha-"><i class="fab fa-github"></i></a></li>
-                              <!-- <li><a class="github" href=""><i class="fas fa-link"></i></a></li> -->
-                              <li><a class="github" href="https://youtu.be/_505gdCvuxY"><i class="fab fa-youtube"></i></a></li>
-                            </ul>
-                        </div>
+                    
+                    <div class="setting-group">
+                        <label><i class="fas fa-layer-group"></i> Aggression Level:</label>
+                        <input type="range" id="hStrength" min="1" max="5" value="5" class="cyber-range">
                     </div>
                 </div>
-            </div>
 
-            <!-- PROJECT -->
-            <div class="blog-post " style="margin-top: 10vh;">
-                <div class="blog-post__img" style="height: 10%;">
-                    <img src="assets/img/PortfolioImage.png" alt="">
+                <textarea class="ai-input-box" id="hInput" placeholder="Paste generated text here to Deep Humanize..."></textarea>
+                
+                <div class="input-stats">
+                    <span class="stat-item" style="border-color:var(--purple)">Words: <b id="hWordCount" style="color:var(--purple)">0</b></span>
+                    <span class="stat-item" style="border-color:var(--purple)">Chars: <b id="hCharCount" style="color:var(--purple)">0</b></span>
                 </div>
-                <div class="blog-post__info ">
-                    <h1 class="blog-post__title">Portfolio Website</h1>
-                    <p class="blog-post__text">
-                        <span class="text-highlight-2">Portfolio</span> is a personal project built whose frontend is coded in HTML, CSS, Bootstrap & the functions are implemented using Javascript.
-                    </p>
-                    <div style="margin-bottom: 10px;"class="technologies">
-                      <p class="project-technologies">>> Frontend - HTML, CSS, Bootstrap, Javascript</p>
-                      <!-- <p class="project-technologies">Backend - </p> -->
-                      <p class="project-technologies">>> APIs/Hosting - Github Pages</p>
-                    </div>
-                    <div class="d-flex justify-content-around ">
-                        <div>
-                            <ul style="margin-bottom: 20px;"class="project-icons">
-                              <li><a class="github" href="https://github.com/lavishabhambri/My-Portfolio"><i class="fab fa-github"></i></a></li>
-                              <li><a class="github" href="https://lavishabhambri.github.io/My-Portfolio/"><i class="fas fa-link"></i></a></li>
-                              <!-- <li><a class="github" href="https://github.com/neon0047/ReachMe"><i class="fab fa-youtube"></i></a></li> -->
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
+                <button class="ai-btn" onclick="humanizeTextDeep()" style="border-color:var(--purple); color:var(--purple); width:100%;">
+                    <i class="fas fa-atom"></i> INITIATE DEEP REWRITE
+                </button>
 
-            <!-- PROJECT-->
-            <div class="blog-post " style="margin-top: 10vh;">
-                <div class="blog-post__img" style="height: 10%;">
-                    <img src="assets/img/ARGreetingImage.png" alt="">
-                </div>
-                <div class="blog-post__info ">
-                    <h1 class="blog-post__title">AR Greetings</h1>
-                    <p class="blog-post__text">
-                        <span class="text-highlight-2">AR Greetings</span> is a website allows people to share digital Augmented Reality Greeting Cards. It helps people to greet their friends and family through the AR greetings, thus stopping the spread of Covid-19.
-                    </p>
-                    <div style="margin-bottom: 10px;"class="technologies">
-                      <p class="project-technologies">>> Frontend - HTML, CSS, Bootstrap, Javascript, JQuery</p>
-                      <p class="project-technologies">>> Backend - restdb.io, A-Frame</p>
-                      <p class="project-technologies">>> APIs/Hosting - EchoAR</p>
+                <div id="hLoading" style="display:none; margin-top:20px; text-align:center;">
+                    <p style="color:var(--purple); letter-spacing:2px; font-family:'Rajdhani'; font-weight:bold;">RESTRUCTURING SYNTAX...</p>
+                    <div class="meter-container">
+                        <div class="meter-fill" id="hProgress" style="background:var(--purple); width:0%"></div>
                     </div>
-                    <div class="d-flex justify-content-around ">
-                        <div>
-                            <ul style="margin-bottom: 20px;"class="project-icons">
-                              <li><a class="github" href="https://github.com/Gamient-Society/AR-greeting"><i class="fab fa-github"></i></a></li>
-                              <li><a class="github" href="https://gamient-society.github.io/AR-greeting/"><i class="fas fa-link"></i></a></li>
-                              <li><a class="github" href="https://www.youtube.com/watch?v=GxBjMiH237o"><i class="fab fa-youtube"></i></a></li>
-                            </ul>
-                        </div>
+                    <p id="hStatus" style="font-size:0.8rem; color:#888; margin-top:5px;">Analyzing sentence structure...</p>
+                </div>
+
+                <div class="result-box" id="hResultBox" style="display:none; border-color:var(--purple);">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                        <h4 style="margin:0; color:var(--purple)">HUMANIZED OUTPUT:</h4>
+                        <button class="copy-btn" onclick="copyOutput()"><i class="fas fa-copy"></i> Copy Result</button>
+                    </div>
+                    <textarea class="ai-input-box" id="hOutput" readonly style="height:250px; color:#fff; border:1px solid rgba(188, 19, 254, 0.3); background:rgba(188, 19, 254, 0.05);"></textarea>
+                    
+                    <div class="stats-row" style="flex-wrap:wrap;">
+                        <span><i class="fas fa-shield-alt" style="color:var(--green)"></i> Anti-Detection: Active</span>
+                        <span><i class="fas fa-random" style="color:var(--cyan)"></i> Burstiness: High</span>
+                        <span><i class="fas fa-magic" style="color:var(--purple)"></i> Syntax: Scrambled</span>
                     </div>
                 </div>
-            </div>
-
-            <!-- PROJECT -->
-            <div class="blog-post " style="margin-top: 10vh;">
-                <div class="blog-post__img" style="height: 10%;">
-                    <img src="assets/img/findMyHospital.png" alt="">
-                </div>
-                <div class="blog-post__info ">
-                    <h1 class="blog-post__title">findMyHospital</h1>
-                    <p class="blog-post__text">
-                        <span class="text-highlight-2">FindMyHospital</span> is a healthcare website where people can search for the nearest the hospital & provides other information about the Hospitals like availability of number of beds, blood groups, Operation Theatres, hospital's details, working hours and doctor's specialisation.
-                    </p>
-                    <div style="margin-bottom: 10px;"class="technologies">
-                      <p class="project-technologies">>> Frontend - HTML, CSS, Bootstrap, Javascript, Python</p>
-                      <p class="project-technologies">>> Backend - PostgreSQL</p>
-                      <p class="project-technologies">>> APIs/Hosting - Heroku, cloudflare, django</p>
-                    </div>
-                    <div class="d-flex justify-content-around ">
-                        <div>
-                            <ul style="margin-bottom: 20px;"class="project-icons">
-                              <li><a class="github" href="https://github.com/Anshit01/findMyHospital"><i class="fab fa-github"></i></a></li>
-                              <li><a class="github" href="https://findmyhospital.co/"><i class="fas fa-link"></i></a></li>
-                              <li><a class="github" href="https://youtu.be/WswvQo0COx4"><i class="fab fa-youtube"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- PROJECT -->
-            <div class="blog-post " style="margin-top: 10vh;">
-                <div class="blog-post__img" style="height: 10%;">
-                    <img src="assets/img/NoseFilterProject.png" alt="">
-                </div>
-                <div class="blog-post__info ">
-                    <h1 class="blog-post__title">Nose draw filter</h1>
-                    <p class="blog-post__text">
-                        A fun <span class="text-highlight-2">Instagram filter</span> project in which I detected the nose tip using the landmarks detection used to draw virtually on the screen using the nose tip.
-                    </p>
-                    <div style="margin-bottom: 10px;"class="technologies">
-                      <p class="project-technologies">>> Languages - Python</p>
-                      <p class="project-technologies">>> Technology - OpenCV, landmarks detection</p>
-                      <!-- <p class="project-technologies">>> APIs/Hosting - Heroku, cloudflare, django</p> -->
-                    </div>
-                    <div class="d-flex justify-content-around ">
-                        <div>
-                            <ul style="margin-bottom: 20px;"class="project-icons">
-                              <li><a class="github" href="https://github.com/lavishabhambri/OpenCV-Projects/tree/master/Nose%20Draw%20Filter"><i class="fab fa-github"></i></a></li>
-                              <!-- <li><a class="github" href="https://findmyhospital.co/"><i class="fas fa-link"></i></a></li>
-                              <li><a class="github" href="https://youtu.be/WswvQo0COx4"><i class="fab fa-youtube"></i></a></li> -->
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-</section>
-            <!-- <section class="work section" id="work"> -->
-                <!-- <h2 class="section-title">Work</h2>
-
-                <div class="work__container bd-grid">
-                    <div class="work__img">
-                        <img src="assets/img/work1.jpg" alt="">
-                    </div>
-                    <div class="work__img">
-                        <img src="assets/img/work2.jpg" alt="">
-                    </div>
-                    <div class="work__img">
-                        <img src="assets/img/work3.jpg" alt="">
-                    </div>
-                    <div class="work__img">
-                        <img src="assets/img/work4.jpg" alt="">
-                    </div>
-                    <div class="work__img">
-                        <img src="assets/img/work5.jpg" alt="">
-                    </div>
-                    <div class="work__img">
-                        <img src="assets/img/work6.jpg" alt="">
-                    </div>
-                </div>
-            </section>-->
-
-          <!--===== CERTIFICATIONS SECTION =====-->
-          <section class="certification section" id="certification">
-
-            <h2 class="section-title">Certificates</h2>
-
-            <div class="inner_container" style="text-align: center;">
-			    <div class="certificates-box"><a href="assets/img/codingninjas1.png"><img alt="Coding Ninjas Top Performer" src="assets/img/codingninjas1.png"></a></div>
-                <div class="certificates-box"><a href="assets/img/codingninjas2.png"><img alt="Coding Ninjas Top Performer" src="assets/img/codingninjas2.png"></a></div>
-                <div class="certificates-box"><a href="assets/img/codejamio.png"><img alt="Codejam IO 2021" src="assets/img/codejamio.png"></a></div>
-                <div class="certificates-box"><a href="assets/img/hashcode.png"><img alt="Hashcode 2021" src="assets/img/hashcode.png"></a></div>
-                <div class="certificates-box"><a href="assets/img/mlsa.png"><img alt="Microsft Student Learn Ambassador" src="assets/img/mlsa.png"></a></div>
-                <div class="certificates-box"><a href="assets/img/appliedML.jpeg"><img alt="Applied ML Course" src="assets/img/appliedML.jpeg"></a></div>
-                <div class="certificates-box"><a href="assets/img/introToDataScience.jpeg"><img alt="Into to Data Science Course" src="assets/img/introToDataScience.jpeg"></a></div>
-                <div class="certificates-box"><a href="assets/img/nlp.jpeg"><img alt="NLP Course" src="assets/img/nlp.jpeg"></a></div>
 
             </div>
+        </div>
+    </section>
 
-          </section>
-
-
-            <!--===== CONTACT =====-->
-            <section class="contact section" id="contact">
-                <h2 class="section-title">Contact</h2>
-
-                <div class="contact__container bd-grid">
-                    <form action="mailto:bhambrilavisha@gmail.com" class="contact__form">
-                        <input type="text" placeholder="Name" class="contact__input" required>
-                        <input type="gmail" placeholder="Email" class="contact__input" required>
-                        <textarea name="subject" id="" cols="0" rows="10" class="contact__input" required></textarea>
-                        <input type="submit" href="" value="Submit" class="contact__button button">
-                    </form>
+    <section id="favourites">
+        <h2>My Favourites</h2>
+        <div class="card-3d">
+            <div class="layer-content">
+                <h3>Things I Love</h3>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;"></iframe>
                 </div>
-            </section>
-        </main>
-
-        <!--===== FOOTER =====-->
-        <footer class="footer">
-            <p class="footer__title"><span class="text-highlight footer-name">Lavisha</span></p>
-            <h5 class="footer__phone"style="margin:10px; color:#dddddd;">Phone: +91-8920616228</h5>
-            <div class="footer__social">
-                <a href="https://www.linkedin.com/in/lavisha-bhambri-630384196/" class="footer__icon"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://github.com/lavishabhambri" class="footer__icon"><i class="fab fa-github"></i></a>
-                <a href="mailto:bhambrilavisha@gmail.com" class="footer__icon"><i class="fas fa-envelope icons"></i></a>
-                <a href="https://twitter.com/BhambriLavisha" class="footer__icon"><i class="fab fa-twitter"></i></a>
-                <a href="https://bhambrilavisha.medium.com/" class="footer__icon"><i class="fab fa-medium-m"></i></a>
             </div>
-            <p style="margin-top: 10px;color:#dddddd;">&#169; 2021 Made with <span style="color:red;"><i class="fas fa-heart"></i></span> by <span class="text-highlight-2">Lavisha Bhambri</span></p>
-        </footer>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://wa.me/qr/DHFF76M3TV2AJ1" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://web.facebook.com/mhbappi1900/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://www.instagram.com/mhbappi1900?utm_source=qr&igsh=Y2ExaWxpd3Jwdnc5" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://t.me/mahadihasanbappi" target="_blank"><i class="fa-brands fa-telegram"></i></a>
+            <a href="https://www.tiktok.com/@mhbappi?_r=1&_t=ZS-91rfzY8qwa8" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+        </div>
+        <p style="color:#666;">&copy; 2025 Mahadi Hasan Bappi | Designed with <i class="fas fa-heart" style="color:var(--cyan);"></i></p>
+    </footer>
+
+    <script>
+        /* Cursor Logic */
+        const cursor = document.querySelector('.cursor');
+        document.addEventListener('mousemove', e => { cursor.style.top = e.clientY + 'px'; cursor.style.left = e.clientX + 'px'; });
+        document.addEventListener('mousedown', () => cursor.classList.add('expand'));
+        document.addEventListener('mouseup', () => cursor.classList.remove('expand'));
+        document.querySelectorAll('a, button, select, input, textarea').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+        });
+
+        /* Particles Background */
+        const cvs = document.getElementById("network"), ctx = cvs.getContext("2d");
+        cvs.width = window.innerWidth; cvs.height = window.innerHeight;
+        let parts = []; for(let i=0; i<80; i++) parts.push({x:Math.random()*cvs.width, y:Math.random()*cvs.height, vx:(Math.random()-.5)*.5, vy:(Math.random()-.5)*.5});
+        function anim() {
+            ctx.clearRect(0,0,cvs.width,cvs.height);
+            parts.forEach(p=>{ p.x+=p.vx; p.y+=p.vy; if(p.x<0||p.x>cvs.width) p.vx*=-1; if(p.y<0||p.y>cvs.height) p.vy*=-1; ctx.beginPath(); ctx.arc(p.x,p.y,1.5,0,Math.PI*2); ctx.fillStyle="#00f2ff"; ctx.fill(); });
+            for(let i=0;i<parts.length;i++){ for(let j=i;j<parts.length;j++){ let d=Math.sqrt(Math.pow(parts[i].x-parts[j].x,2)+Math.pow(parts[i].y-parts[j].y,2)); if(d<120){ctx.beginPath(); ctx.moveTo(parts[i].x,parts[i].y); ctx.lineTo(parts[j].x,parts[j].y); ctx.strokeStyle=`rgba(0,242,255,${1-d/120})`; ctx.stroke();} } }
+            requestAnimationFrame(anim);
+        }
+        anim(); window.onresize=()=>{cvs.width=window.innerWidth; cvs.height=window.innerHeight};
+
+        /* 3D Tilt */
+        document.querySelectorAll('.card-3d').forEach(c => {
+            c.onmousemove = e => {
+                let rect=c.getBoundingClientRect(), rotateX = ((e.clientY-rect.top)/rect.height - 0.5) * -15, rotateY = ((e.clientX-rect.left)/rect.width - 0.5) * 15;
+                c.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+            };
+            c.onmouseleave = () => c.style.transform = "perspective(1000px) rotateX(0) rotateY(0) scale(1)";
+        });
+        const obs = new IntersectionObserver(ents => ents.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), {threshold:0.1});
+        document.querySelectorAll('.card-3d').forEach(c => obs.observe(c));
+
+        /* --- WORD & CHAR COUNTER LOGIC --- */
+        function setupCounter(inputId, wId, cId) {
+            const el = document.getElementById(inputId);
+            const wDisplay = document.getElementById(wId);
+            const cDisplay = document.getElementById(cId);
+
+            el.addEventListener('input', function() {
+                const text = this.value;
+                cDisplay.innerText = text.length;
+                const words = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+                wDisplay.innerText = words;
+            });
+        }
+        
+        setupCounter('aiInput', 'aiWordCount', 'aiCharCount');
+        setupCounter('hInput', 'hWordCount', 'hCharCount');
 
 
-        <!--===== SCROLL REVEAL =====-->
-        <!-- <script src="https://unpkg.com/scrollreveal"></script> -->
+        /* --- AI DETECTOR LOGIC --- */
+        function detectAI() {
+            const text = document.getElementById('aiInput').value.trim();
+            const resultBox = document.getElementById('resultBox'), scoreText = document.getElementById('scoreText'), meterFill = document.getElementById('meterFill'), verdict = document.getElementById('verdict');
+            if(text.split(/\s+/).length < 5) { alert("Please enter more text (at least 5 words)."); return; }
+            
+            resultBox.style.display = 'block'; scoreText.innerText = "Scanning..."; meterFill.style.width = "0%";
+            
+            setTimeout(() => {
+                const sentences = text.match(/[^\.!\?]+[\.!\?]+/g) || [text];
+                const lengths = sentences.map(s => s.trim().split(' ').length);
+                const avg = lengths.reduce((a,b)=>a+b,0)/lengths.length;
+                const variance = lengths.reduce((a,b)=>a+Math.pow(b-avg,2),0)/lengths.length;
+                
+                let aiScore = 65; 
+                if(variance > 18) aiScore -= 40; 
+                if(text.includes("delve") || text.includes("realm") || text.includes("crucial")) aiScore += 20;
+                
+                if(aiScore > 99) aiScore = 99; if(aiScore < 1) aiScore = 5;
 
-        <!--===== MAIN JS =====-->
-        <script src="assets/js/main.js"></script>
-        <script src="assets/js/skills.js"></script>
-        <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
-    </body>
+                scoreText.innerText = aiScore + "%"; meterFill.style.width = aiScore + "%";
+                if(aiScore > 60) { meterFill.style.background = "var(--red)"; verdict.innerHTML = "<span style='color:var(--red)'>LIKELY AI GENERATED</span>"; }
+                else { meterFill.style.background = "var(--green)"; verdict.innerHTML = "<span style='color:var(--green)'>LIKELY HUMAN WRITTEN</span>"; }
+            }, 1200);
+        }
+
+        /* --- DEEP HUMANIZER LOGIC (ADVANCED) --- */
+        function humanizeTextDeep() {
+            const input = document.getElementById('hInput').value;
+            const mode = document.getElementById('hMode').value;
+            const loader = document.getElementById('hLoading');
+            const progress = document.getElementById('hProgress');
+            const status = document.getElementById('hStatus');
+
+            if(input.length < 5) { alert("Enter text to humanize."); return; }
+
+            document.getElementById('hResultBox').style.display = 'none';
+            loader.style.display = 'block'; progress.style.width = '0%';
+            
+            // Simulation Stages
+            const stages = ["Scanning syntax...", "Injecting perplexity...", "Removing footprints...", "Finalizing flow..."];
+            let w = 0;
+            const intv = setInterval(() => {
+                w += 2; progress.style.width = w + '%';
+                if(w % 25 === 0) status.innerText = stages[Math.floor(w/26)];
+                if(w >= 100) {
+                    clearInterval(intv);
+                    processDeepRewrite(input, mode);
+                }
+            }, 60);
+        }
+
+        function processDeepRewrite(text, mode) {
+            // 1. COMPLEX DICTIONARY
+            const map = {
+                "delve": ["dig", "look", "get into"], "realm": ["world", "space"], "crucial": ["key", "big"], "tapestry": ["mix"],
+                "underscore": ["highlight", "show"], "landscape": ["context"], "meticulous": ["careful"], "utilize": ["use"],
+                "leverage": ["use"], "moreover": ["plus,"], "in conclusion": ["so,", "basically,"], "ensure": ["make sure"],
+                "embarks": ["starts"], "pivotal": ["main"], "intricate": ["complex"], "notably": ["mainly"],
+                "consequently": ["so"], "furthermore": ["also"], "demonstrates": ["shows"], "however": ["but"],
+                "therefore": ["that's why"], "additionally": ["also"], "significant": ["big"], "individuals": ["people"],
+                "opt": ["choose"], "regarding": ["about"], "facilitate": ["help"], "utilization": ["use"]
+            };
+
+            const academicMap = {
+                "show": "demonstrate", "big": "substantial", "think": "postulate", "bad": "adverse",
+                "really": "significantly", "use": "employ", "start": "commence"
+            };
+
+            // 2. SENTENCE FRAGMENTER
+            let sentences = text.match(/[^\.!\?]+[\.!\?]+/g) || [text];
+            let outSentences = [];
+
+            sentences.forEach(s => {
+                let sClean = s.trim();
+                
+                Object.keys(map).forEach(k => {
+                    if(mode !== 'academic' && sClean.toLowerCase().includes(k)) {
+                         sClean = sClean.replace(new RegExp(`\\b${k}\\b`, 'gi'), map[k][0]);
+                    }
+                });
+                
+                if(mode === 'academic') {
+                    Object.keys(academicMap).forEach(k => {
+                        if(sClean.toLowerCase().includes(k)) {
+                            sClean = sClean.replace(new RegExp(`\\b${k}\\b`, 'gi'), academicMap[k]);
+                        }
+                    });
+                }
+
+                if(mode === 'ghost' && sClean.length > 80) {
+                    if(sClean.includes(" and ")) {
+                        sClean = sClean.replace(" and ", ". And ");
+                    } else if(sClean.includes(" because ")) {
+                        sClean = sClean.replace(" because ", ". This is because ");
+                    }
+                }
+
+                if(mode !== 'academic' && Math.random() > 0.7) {
+                    const bridges = ["Honestly, ", "Here's the thing: ", "To be fair, ", "Actually, "];
+                    if(!sClean.startsWith("And") && !sClean.startsWith("But")) {
+                        sClean = bridges[Math.floor(Math.random()*bridges.length)] + sClean.charAt(0).toLowerCase() + sClean.slice(1);
+                    }
+                }
+
+                outSentences.push(sClean);
+            });
+
+            let finalOutput = outSentences.join(" ");
+
+            // 3. ZERO-WIDTH NOISE
+            if(mode === 'ghost') {
+                finalOutput = finalOutput.split("").map(char => {
+                    return Math.random() > 0.95 ? char + "\u200B" : char;
+                }).join("");
+            }
+
+            document.getElementById('hLoading').style.display = 'none';
+            document.getElementById('hResultBox').style.display = 'block';
+            document.getElementById('hOutput').value = finalOutput;
+        }
+
+        function copyOutput() {
+            const el = document.getElementById("hOutput");
+            el.select(); document.execCommand("copy");
+            alert("Humanized text copied! (Invisible noise injected)");
+        }
+    </script>
+</body>
 </html>
